@@ -6,7 +6,7 @@
   "dependencies": {
     "async": "^1.5.2",
     "glob": "^7.0.3",
-    "gulp": "^3.9.0",
+    "gulp": "4",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-debug": "^2.1.2",
     "gulp-exec": "^2.1.2",

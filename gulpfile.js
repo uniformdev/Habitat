@@ -35,22 +35,22 @@ helix.header("The Habitat source code, tools and processes are examples of Sitec
 gulp.task("default",
     function(callback) {
         config.runCleanBuilds = true;
-        return runSequence(
+        gulp.series(
             "Publish-All-Projects",
             "Apply-Xml-Transform",
             "Publish-Transforms",
             "Sync-Unicorn",
-            callback);
+            function(cb){ cb(); callback()})();
     });
 
 gulp.task("deploy",
     function(callback) {
         config.runCleanBuilds = true;
-        return runSequence(
+        return gulp.series(
             "Publish-All-Projects",
             "Apply-Xml-Transform",
             "Publish-Transforms",
-            callback);
+            function(cb){ cb(); callback()})();
     });
 
 /*****************************
@@ -125,7 +125,7 @@ gulp.task("Apply-Xml-Transform",
                     applyTransform(next);
                 } else {
                     // no more transforms, let gulp know we're done
-                    resolve('done');
+                    resolve();
                 }
             }
 
@@ -177,7 +177,7 @@ gulp.task("Auto-Publish-Css",
         var roots = [root + "/**/styles", "!" + root + "/**/obj/**/styles"];
         var files = "/**/*.css";
         var destination = config.websiteRoot + "\\styles";
-        gulp.src(roots, { base: root }).pipe(
+        return gulp.src(roots, { base: root }).pipe(
             foreach(function(stream, rootFolder) {
                 gulp.watch(rootFolder.path + files,
                     function(event) {
@@ -253,13 +253,13 @@ gulp.task("Package-Publish",
         config.websiteRoot = path.resolve("./temp");
         config.buildConfiguration = "Release";
         fs.mkdirSync(config.websiteRoot);
-        runSequence(
+        return gulp.series(
             "Build-Solution",
             "Publish-Foundation-Projects",
             "Publish-Feature-Projects",
             "Publish-Project-Projects",
             "Publish-Transforms",
-            callback);
+            function(cb){ cb(); callback()})();
     });
 
 /* Remove unwanted files */
@@ -380,7 +380,7 @@ gulp.task("Package-Clean",
 /* Main task, generate package.xml */
 gulp.task("Package-Generate",
     function(callback) {
-        runSequence(
+        return gulp.series(
             "Package-Clean",
             "Package-Create-Package-Xml",
             "Package-Publish",
@@ -390,5 +390,5 @@ gulp.task("Package-Generate",
             "Package-Enumerate-Users",
             "Package-Enumerate-Roles",
             "Package-Clean",
-            callback);
+            function(cb){ cb(); callback()})();
     });
