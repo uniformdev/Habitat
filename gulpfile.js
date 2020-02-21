@@ -1,14 +1,10 @@
 /// <binding />
 var gulp = require("gulp");
 var _msbuild = require("msbuild");
-var debug = require("gulp-debug");
 var foreach = require("gulp-foreach");
 var rename = require("gulp-rename");
-var newer = require("gulp-newer");
 var util = require("gulp-util");
-var runSequence = require("run-sequence");
 var fs = require("fs");
-var yargs = require("yargs").argv;
 var unicorn = require("./scripts/unicorn.js");
 var habitat = require("./scripts/habitat.js");
 var helix = require("./scripts/helix.js");
