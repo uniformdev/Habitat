@@ -94,16 +94,10 @@ If your Solr environment is not currently running with HTTPS, you can create an 
 
 1. Restore Node.js modules
     * Open an elevated privileges command prompt (started with **Run as administrator**)
-    * Run **`npm install`** in the root of repository.
-1. If gulp has not been installed globally, you can do so by running **`npm install -g gulp`**
-1. Build and publish the solution using either:
-    * Open an command prompt with elevated privileges and run **`gulp`** in the root of repository.
-    * Use Visual Studio:
-      * Open **Visual Studio 2019** in administrator mode by right-clicking on its icon and selecting **Run as administrator**.
-      * Open the Habitat solution.
-      * Open the **Visual Studio 2019** Task Runner Explorer pane (**View** | **Other Windows** | **Task Runner Explorer**).
-      * Switch to "Solution 'Habitat'"
-        * Run the "default" task
+    * Run **`yarn`** in the root of repository (**`npm install`** should work too).
+1. Build and publish the solution using:
+    * Open an elevated privileges command prompt (started with **Run as administrator**)
+    * Run **`npx gulp`** in the root of repository
 
 ### 3. Rebuild search indexes
 
