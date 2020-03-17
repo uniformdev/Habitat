@@ -187,3 +187,23 @@ if (-not $SkipPrerequisites) {
 }
 Install-XP0SingleDeveloper
 Add-AppPool-Membership
+
+$installRoot = (Get-Location).Path
+$SCInstallRoot = [System.IO.Path]::GetFullPath("$installRoot")
+
+# create source folder config file for unicorn and other integrations
+$SourceFolderConfigFolderPath = "$SitecoreSiteRoot\App_Config\Environment\"
+If (!(Test-Path $SourceFolderConfigFolderPath))
+{
+    New-Item -ItemType Directory -Force -Path $SourceFolderConfigFolderPath | Out-Null
+}
+$SourceFolderConfigFilePath = "$SourceFolderConfigFolderPath\SourceFolder.config"
+$SrcSourceFolderPath = [System.IO.Path]::GetFullPath("$SCInstallRoot\src")
+
+"<!-- The purpose of this file is to define sourceFolder variable pointing to current src folder in project git repo -->`
+<configuration>`
+    <sitecore>`
+        <sc.variable name=`"sourceFolder`" value=`"$SrcSourceFolderPath`"/>`
+    </sitecore>`
+</configuration>" | Out-File "$SourceFolderConfigFilePath"
+
