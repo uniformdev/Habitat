@@ -22,13 +22,12 @@ This project assumes the following settings:
 | SQL Server          | .                                                                          | `settings.ps1` |
 | SQL Server Admin    | sa                                                                         | `settings.ps1` |
 | SQL Server Password | 12345                                                                      | `settings.ps1` |
-| SOLR Location       | C:\solr\solr-7.5.0                                                         | `settings.ps1` |
-| SOLR URL            | [https://solr750:8750/solr](https://solr750:8750/solr) (*Note https*)      | `settings.ps1` |
+| SOLR Location       | C:\etc\solr-7.5.0                                                         | `settings.ps1` |
+| SOLR URL            | [https://localhost:8750/solr](https://localhost:8750/solr) (*Note https*)      | `settings.ps1` |
 | SOLR Windows Service Name   | Solr-7.5.0                                                         | `settings.ps1` |
 
 <sup>1</sup> Files referred are:
 
-* `.\src\Project\Habitat\code\App_Config\Environment\Project\Habitat.Dev.config`
 * `.\src\Project\Habitat\code\App_Config\Include\Project\Habitat.Website.config`
 * `.\gulp-config.js`
 * `.\publishsettings.targets`

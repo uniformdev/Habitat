@@ -51,5 +51,5 @@ $IdentityServerSiteRoot = Join-Path $webroot -ChildPath $IdentityServerSiteName
 
 # Solr Parameters
 $SolrUrl = "https://solr750:8750/solr"
-$SolrRoot = "C:\\solr\\solr-7.5.0"
+$SolrRoot = "C:\\etc\\solr-7.5.0"
 $SolrService = "Solr-7.5.0"
