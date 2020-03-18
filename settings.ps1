@@ -50,6 +50,6 @@ $IdentityAllowedCorsOrigins = $SitecoreSiteUrl
 $IdentityServerSiteRoot = Join-Path $webroot -ChildPath $IdentityServerSiteName
 
 # Solr Parameters
-$SolrUrl = "https://solr750:8750/solr"
+$SolrUrl = "https://localhost:8750/solr"
 $SolrRoot = "C:\\etc\\solr-7.5.0"
 $SolrService = "Solr-7.5.0"
