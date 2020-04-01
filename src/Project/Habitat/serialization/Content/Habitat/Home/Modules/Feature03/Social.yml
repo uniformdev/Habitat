@@ -1,0 +1,44 @@
+﻿---
+ID: "89e50ae6-fbf1-4a2c-916a-23031e5bab9e"
+Parent: "8dce3193-d0a8-4af7-b719-8c7a702d52ca"
+Template: "94a8c8e9-690b-4e65-98e7-f95800222767"
+Path: /sitecore/content/Habitat/Home/Modules/Feature03/Social
+DB: master
+SharedFields:
+- ID: "19b597d3-2edd-4ae2-aefe-4a94c7f10e31"
+  Hint: __Source Item
+  Value: "sitecore://master/{28795ACC-FB32-4B9B-80F1-AEC94D1B0701}"
+- ID: "a4f985d9-98b3-4b52-aaaf-4344f6e747c6"
+  Hint: __Workflow
+  Value: 
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "1b86697d-60ca-4d80-83fb-7555a2e6ce1c"
+      Hint: __Source
+      Value: "sitecore://master/{28795ACC-FB32-4B9B-80F1-AEC94D1B0701}?lang=en&ver=1"
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20200331T062425Z
+    - ID: "3e431de1-525e-47a3-b6b0-1ccbec3a8c98"
+      Hint: __Workflow state
+      Value: 
+- Language: "ja-JP"
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "1b86697d-60ca-4d80-83fb-7555a2e6ce1c"
+      Hint: __Source
+      Value: "sitecore://master/{28795ACC-FB32-4B9B-80F1-AEC94D1B0701}?lang=ja-JP&ver=1"
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20200331T062425Z
+    - ID: "3e431de1-525e-47a3-b6b0-1ccbec3a8c98"
+      Hint: __Workflow state
+      Value: 
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin

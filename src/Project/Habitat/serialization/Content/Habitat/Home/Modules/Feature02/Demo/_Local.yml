@@ -1,0 +1,34 @@
+﻿---
+ID: "eb81355a-2bf7-41e1-97ff-7576b2a2cf6f"
+Parent: "0c1a6b2a-c1ba-4419-9992-745423ca8f18"
+Template: "fff5f245-ffc0-4022-a998-9b07aa5e761f"
+Path: /sitecore/content/Habitat/Home/Modules/Feature02/Demo/_Local
+DB: master
+SharedFields:
+- ID: "1172f251-dad4-4efb-a329-0c63500e4f1e"
+  Hint: __Masters
+  Type: TreelistEx
+  Value: "{B4F6F114-E653-4A22-86C5-499E0BD99D9A}"
+- ID: "19b597d3-2edd-4ae2-aefe-4a94c7f10e31"
+  Hint: __Source Item
+  Value: 
+- ID: "a4f985d9-98b3-4b52-aaaf-4344f6e747c6"
+  Hint: __Workflow
+  Value: 
+- ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
+  Hint: __Sortorder
+  Value: "-1000"
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "1b86697d-60ca-4d80-83fb-7555a2e6ce1c"
+      Hint: __Source
+      Value: 
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20200331T062116Z
+    - ID: "3e431de1-525e-47a3-b6b0-1ccbec3a8c98"
+      Hint: __Workflow state
+      Value: 

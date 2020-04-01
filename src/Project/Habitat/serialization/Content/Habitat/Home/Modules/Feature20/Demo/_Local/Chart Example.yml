@@ -1,0 +1,152 @@
+﻿---
+ID: "be3850d0-0690-4ee5-a01e-2a918f5617d7"
+Parent: "cc9e082d-ce91-4c52-b60f-74e19416014d"
+Template: "b4f6f114-e653-4a22-86c5-499e0bd99d9a"
+Path: /sitecore/content/Habitat/Home/Modules/Feature20/Demo/_Local/Chart Example
+DB: master
+SharedFields:
+- ID: "19b597d3-2edd-4ae2-aefe-4a94c7f10e31"
+  Hint: __Source Item
+  Value: 
+- ID: "a4f985d9-98b3-4b52-aaaf-4344f6e747c6"
+  Hint: __Workflow
+  Value: 
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "0bc0aedf-a6d0-4f74-933c-bd1779cd40b2"
+      Hint: HTML Content
+      Value: |
+        <div class="well">
+        <h3>Even a pretty D3 chart</h3>
+        <div id="chart" class="text-center"></div>
+        <script src="https://d3js.org/d3.v4.min.js"></script>
+            <script>
+              (function(d3) {
+                'use strict';
+        
+                var dataset = [
+                  { label: 'Abulia', count: 10 },
+                  { label: 'Betelgeuse', count: 20 },
+                  { label: 'Cantaloupe', count: 30 },
+                  { label: 'Dijkstra', count: 40 }
+                ];
+        
+                var width = 200;
+                var height = 200;
+                var radius = Math.min(width, height) / 2;
+        
+                var color = d3.scaleOrdinal(d3.schemeCategory20b);
+        
+                var svg = d3.select('#chart')
+                  .append('svg')
+                  .attr('width', width)
+                  .attr('height', height)
+                  .append('g')
+                  .attr('transform', 'translate(' + (width / 2) +
+                    ',' + (height / 2) + ')');
+        
+                var arc = d3.arc()
+                  .innerRadius(0)
+                  .outerRadius(radius);
+        
+                var pie = d3.pie()
+                  .value(function(d) { return d.count; })
+                  .sort(null);
+        
+                var path = svg.selectAll('path')
+                  .data(pie(dataset))
+                  .enter()
+                  .append('path')
+                  .attr('d', arc)
+                  .attr('fill', function(d) {
+                    return color(d.data.label);
+                  });
+        
+              })(window.d3);
+            </script>
+        </div>
+    - ID: "1b86697d-60ca-4d80-83fb-7555a2e6ce1c"
+      Hint: __Source
+      Value: 
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20200331T063828Z
+    - ID: "3e431de1-525e-47a3-b6b0-1ccbec3a8c98"
+      Hint: __Workflow state
+      Value: 
+- Language: "ja-JP"
+  Fields:
+  - ID: "b5e02ad9-d56f-4c41-a065-a133db87bdeb"
+    Hint: __Display name
+    Value: チャートサンプル
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "0bc0aedf-a6d0-4f74-933c-bd1779cd40b2"
+      Hint: HTML Content
+      Value: |
+        <div class="well">
+        <h3>D3 チャートの表示</h3>
+        <div id="chart" class="text-center"></div>
+        <script src="https://d3js.org/d3.v4.min.js"></script>
+            <script>
+              (function(d3) {
+                'use strict';
+        
+                var dataset = [
+                  { label: 'Abulia', count: 10 },
+                  { label: 'Betelgeuse', count: 20 },
+                  { label: 'Cantaloupe', count: 30 },
+                  { label: 'Dijkstra', count: 40 }
+                ];
+        
+                var width = 200;
+                var height = 200;
+                var radius = Math.min(width, height) / 2;
+        
+                var color = d3.scaleOrdinal(d3.schemeCategory20b);
+        
+                var svg = d3.select('#chart')
+                  .append('svg')
+                  .attr('width', width)
+                  .attr('height', height)
+                  .append('g')
+                  .attr('transform', 'translate(' + (width / 2) +
+                    ',' + (height / 2) + ')');
+        
+                var arc = d3.arc()
+                  .innerRadius(0)
+                  .outerRadius(radius);
+        
+                var pie = d3.pie()
+                  .value(function(d) { return d.count; })
+                  .sort(null);
+        
+                var path = svg.selectAll('path')
+                  .data(pie(dataset))
+                  .enter()
+                  .append('path')
+                  .attr('d', arc)
+                  .attr('fill', function(d) {
+                    return color(d.data.label);
+                  });
+        
+              })(window.d3);
+            </script>
+        </div>
+    - ID: "1b86697d-60ca-4d80-83fb-7555a2e6ce1c"
+      Hint: __Source
+      Value: 
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20200331T063828Z
+    - ID: "3e431de1-525e-47a3-b6b0-1ccbec3a8c98"
+      Hint: __Workflow state
+      Value: 
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin
