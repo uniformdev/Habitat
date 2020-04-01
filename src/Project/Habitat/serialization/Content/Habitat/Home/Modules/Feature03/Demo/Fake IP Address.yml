@@ -1,0 +1,27 @@
+﻿---
+ID: "241a3885-b672-4e21-8907-e90b751c65f4"
+Parent: "04daae53-be63-4963-a3f0-8043da4ae657"
+Template: "49c651ba-4004-40a9-9b0f-e95d0573f3ae"
+Path: /sitecore/content/Habitat/Home/Modules/Feature03/Demo/Fake IP Address
+DB: master
+SharedFields:
+- ID: "19b597d3-2edd-4ae2-aefe-4a94c7f10e31"
+  Hint: __Source Item
+  Value: "sitecore://master/{12721530-A0B9-40B5-8A5E-A04AA4507034}"
+- ID: "a4f985d9-98b3-4b52-aaaf-4344f6e747c6"
+  Hint: __Workflow
+  Value: 
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "1b86697d-60ca-4d80-83fb-7555a2e6ce1c"
+      Hint: __Source
+      Value: "sitecore://master/{12721530-A0B9-40B5-8A5E-A04AA4507034}?lang=en&ver=1"
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20200331T062426Z
+    - ID: "3e431de1-525e-47a3-b6b0-1ccbec3a8c98"
+      Hint: __Workflow state
+      Value: 
