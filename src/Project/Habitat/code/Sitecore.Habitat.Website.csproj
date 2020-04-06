@@ -143,9 +143,6 @@
     <None Include="App_Config\layers.config.xdt" />
     <None Include="App_Data\packages\Habitat.xml" />
     <None Include="Properties\PublishProfiles\Standalone.pubxml" />
-    <Content Include="App_Config\Environment\Project\Habitat.Dev.config">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\Website\Layouts\Default.cshtml" />
     <None Include="web.config" />
