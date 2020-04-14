@@ -1,0 +1,64 @@
+﻿---
+ID: "12fe83b3-054c-4686-853d-73db430f126a"
+Parent: "d8ab6db2-aa36-46e6-b50d-6a3e871060ae"
+Template: "ba1eb1bd-e705-4be6-a432-06b7f1b2f2cc"
+Path: /sitecore/content/Habitat/Home/Modules/Feature233/FAQ/FAQ Group
+DB: master
+SharedFields:
+- ID: "19b597d3-2edd-4ae2-aefe-4a94c7f10e31"
+  Hint: __Source Item
+  Value: 
+- ID: "a4f985d9-98b3-4b52-aaaf-4344f6e747c6"
+  Hint: __Workflow
+  Value: 
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "1b86697d-60ca-4d80-83fb-7555a2e6ce1c"
+      Hint: __Source
+      Value: 
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20200401T061944Z
+    - ID: "3e431de1-525e-47a3-b6b0-1ccbec3a8c98"
+      Hint: __Workflow state
+      Value: 
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin
+    - ID: "631da648-e2a5-4e3b-9733-c9c066c41eae"
+      Hint: Group Member
+      Type: Multilist
+      Value: |
+        {F2F572CD-B60D-4D44-BB9C-07FBB68DE621}
+        {EBC4157B-EA4F-4A23-863F-D9EB15F4E4E6}
+- Language: "ja-JP"
+  Fields:
+  - ID: "b5e02ad9-d56f-4c41-a065-a133db87bdeb"
+    Hint: __Display name
+    Value: FAQ グループ
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "1b86697d-60ca-4d80-83fb-7555a2e6ce1c"
+      Hint: __Source
+      Value: 
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20200401T061944Z
+    - ID: "3e431de1-525e-47a3-b6b0-1ccbec3a8c98"
+      Hint: __Workflow state
+      Value: 
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin
+    - ID: "631da648-e2a5-4e3b-9733-c9c066c41eae"
+      Hint: Group Member
+      Type: Multilist
+      Value: |
+        {F2F572CD-B60D-4D44-BB9C-07FBB68DE621}
+        {EBC4157B-EA4F-4A23-863F-D9EB15F4E4E6}

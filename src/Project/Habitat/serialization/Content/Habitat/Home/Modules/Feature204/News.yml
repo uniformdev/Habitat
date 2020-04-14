@@ -1,0 +1,122 @@
+﻿---
+ID: "c0e50af0-c43c-473b-8a97-6daf8847e1a7"
+Parent: "8dce3193-d0a8-4af7-b719-8c7a702d52ca"
+Template: "94a8c8e9-690b-4e65-98e7-f95800222767"
+Path: /sitecore/content/Habitat/Home/Modules/Feature204/News
+DB: master
+SharedFields:
+- ID: "19b597d3-2edd-4ae2-aefe-4a94c7f10e31"
+  Hint: __Source Item
+  Value: "sitecore://master/{58B8984E-9138-4F39-A72B-0DAA35D4CC99}"
+- ID: "a4f985d9-98b3-4b52-aaaf-4344f6e747c6"
+  Hint: __Workflow
+  Value: 
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "04bf00db-f5fb-41f7-8ab7-22408372a981"
+      Hint: __Final Renderings
+      Type: Layout
+      Value: |
+        <r xmlns:p="p" xmlns:s="s"
+          p:p="1"
+          s:xsd="http://www.w3.org/2001/XMLSchema">
+          <d
+            id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}">
+            <r
+              uid="{BB5C8FF9-B813-479E-A3C8-11152B88FDA5}"
+              p:before="*"
+              s:ds="{4875F93D-092C-412A-BB88-886E021490C3}"
+              s:id="{96EFEFFC-4D53-4F29-913E-84EDBFBE4DAB}"
+              s:ph="/page-layout/section-narrow/col-wide-1-{72EA8864-7129-4D5F-A953-1AF281F5691F}-0" />
+            <r
+              uid="{C76A2513-B2CA-48B4-A4A0-989176D2F799}"
+              p:after="r[@uid='{BB5C8FF9-B813-479E-A3C8-11152B88FDA5}']"
+              s:ds="{47169734-8205-4B44-BEF3-A3B76C9C21AE}"
+              s:id="{BDD730EB-F808-4C65-B94A-D2F03672EAFB}"
+              s:ph="/page-layout/section-narrow/col-wide-2-{72EA8864-7129-4D5F-A953-1AF281F5691F}-0" />
+            <r
+              uid="{72EA8864-7129-4D5F-A953-1AF281F5691F}"
+              p:after="r[@uid='{C76A2513-B2CA-48B4-A4A0-989176D2F799}']"
+              s:id="{50F6052C-4FC2-4AA6-9399-FFC6055CF19F}"
+              s:ph="/page-layout/section-narrow" />
+            <r
+              uid="{66422117-69C1-4B62-9323-482F16C4F244}"
+              s:par="Background&amp;UseStaticPlaceholderNames=1&amp;ContainerIsFluid" />
+            <r
+              uid="{025588CB-DFC0-4B02-8223-0015C525AE52}"
+              s:par="Background&amp;UseStaticPlaceholderNames=1&amp;ContainerIsFluid" />
+          </d>
+        </r>
+    - ID: "1b86697d-60ca-4d80-83fb-7555a2e6ce1c"
+      Hint: __Source
+      Value: "sitecore://master/{58B8984E-9138-4F39-A72B-0DAA35D4CC99}?lang=en&ver=1"
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20200331T062421Z
+    - ID: "3e431de1-525e-47a3-b6b0-1ccbec3a8c98"
+      Hint: __Workflow state
+      Value: 
+    - ID: "d74f396d-5c5e-4916-bd0a-bfd58b6b1967"
+      Hint: Body
+      Value: |
+        The News module contains features related to news content, i.e. articles and lists.<br />
+        <a href="~/link.aspx?_id=4716973482054B44BEF3A3B76C9C21AE&amp;_z=z">See the news list here. </a>
+- Language: "ja-JP"
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "04bf00db-f5fb-41f7-8ab7-22408372a981"
+      Hint: __Final Renderings
+      Type: Layout
+      Value: |
+        <r xmlns:p="p" xmlns:s="s"
+          p:p="1"
+          s:xsd="http://www.w3.org/2001/XMLSchema">
+          <d
+            id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}">
+            <r
+              uid="{72EA8864-7129-4D5F-A953-1AF281F5691F}"
+              p:before="*"
+              s:id="{50F6052C-4FC2-4AA6-9399-FFC6055CF19F}"
+              s:ph="/page-layout/section-narrow" />
+            <r
+              uid="{66422117-69C1-4B62-9323-482F16C4F244}"
+              s:par="Background&amp;UseStaticPlaceholderNames=1&amp;ContainerIsFluid" />
+            <r
+              uid="{025588CB-DFC0-4B02-8223-0015C525AE52}"
+              s:par="Background&amp;UseStaticPlaceholderNames=1&amp;ContainerIsFluid" />
+            <r
+              uid="{BB5C8FF9-B813-479E-A3C8-11152B88FDA5}"
+              p:after="r[@uid='{20AB9BAA-C112-4567-A701-564423E650D2}']"
+              s:ds="{4875F93D-092C-412A-BB88-886E021490C3}"
+              s:id="{96EFEFFC-4D53-4F29-913E-84EDBFBE4DAB}"
+              s:ph="/page-layout/section-narrow/col-wide-1_72ea8864-7129-4d5f-a953-1af281f5691f" />
+            <r
+              uid="{C76A2513-B2CA-48B4-A4A0-989176D2F799}"
+              p:after="*[1=2]"
+              s:ds="{47169734-8205-4B44-BEF3-A3B76C9C21AE}"
+              s:id="{BDD730EB-F808-4C65-B94A-D2F03672EAFB}"
+              s:ph="/page-layout/section-narrow/col-wide-2_72ea8864-7129-4d5f-a953-1af281f5691f" />
+          </d>
+        </r>
+    - ID: "1b86697d-60ca-4d80-83fb-7555a2e6ce1c"
+      Hint: __Source
+      Value: "sitecore://master/{58B8984E-9138-4F39-A72B-0DAA35D4CC99}?lang=ja-JP&ver=1"
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20200331T062421Z
+    - ID: "3e431de1-525e-47a3-b6b0-1ccbec3a8c98"
+      Hint: __Workflow state
+      Value: 
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin
+    - ID: "d74f396d-5c5e-4916-bd0a-bfd58b6b1967"
+      Hint: Body
+      Value: |
+        The News module contains features related to news content, i.e. articles and lists.<br />
+        <a href="~/link.aspx?_id=4716973482054B44BEF3A3B76C9C21AE&amp;_z=z">See the news list here. </a>

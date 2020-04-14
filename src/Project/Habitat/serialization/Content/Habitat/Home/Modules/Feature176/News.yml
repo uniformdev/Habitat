@@ -1,0 +1,182 @@
+﻿---
+ID: "0b52ceb0-71e5-4c4a-914f-8ff28d23b441"
+Parent: "1b2ca04a-5bda-4314-ac39-4e55e2a6c2f7"
+Template: "94a8c8e9-690b-4e65-98e7-f95800222767"
+Path: /sitecore/content/Habitat/Home/Modules/Feature176/News
+DB: master
+SharedFields:
+- ID: "1172f251-dad4-4efb-a329-0c63500e4f1e"
+  Hint: __Masters
+  Type: TreelistEx
+  Value: |
+    {94A8C8E9-690B-4E65-98E7-F95800222767}
+    {8FF3D369-A508-4D2F-84A5-9B6C6BF5E537}
+    {467C2144-4454-4518-B1DE-E31B4CBBFF33}
+    {A99866E5-08E7-44D8-8A52-F8E26BCD3714}
+- ID: "19b597d3-2edd-4ae2-aefe-4a94c7f10e31"
+  Hint: __Source Item
+  Value: 
+- ID: "a4f985d9-98b3-4b52-aaaf-4344f6e747c6"
+  Hint: __Workflow
+  Value: 
+- ID: "b0a67b2a-8b07-4e0b-8809-69f751709806"
+  Hint: __Tracking
+  Type: Tracking
+  Value: |
+    <tracking>
+      <profile
+        id="c4cc3ef6-a779-44ad-9021-01f1dae26270"
+        name="Layers"
+        presets="freddy the feature layer|100||">
+        <key
+          name="Feature"
+          value="10" />
+        <key
+          name="Foundation"
+          value="2" />
+        <key
+          name="Project"
+          value="0" />
+      </profile>
+    </tracking>
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "04bf00db-f5fb-41f7-8ab7-22408372a981"
+      Hint: __Final Renderings
+      Type: Layout
+      Value: |
+        <r xmlns:p="p" xmlns:s="s"
+          p:p="1"
+          s:xsd="http://www.w3.org/2001/XMLSchema">
+          <d
+            id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}">
+            <r
+              uid="{BB5C8FF9-B813-479E-A3C8-11152B88FDA5}"
+              p:before="*"
+              s:ds="{AA5EA770-F363-452A-AEB1-6FAE0833DA8B}"
+              s:id="{96EFEFFC-4D53-4F29-913E-84EDBFBE4DAB}"
+              s:ph="/page-layout/section-narrow/col-wide-1-{72EA8864-7129-4D5F-A953-1AF281F5691F}-0" />
+            <r
+              uid="{C76A2513-B2CA-48B4-A4A0-989176D2F799}"
+              p:after="r[@uid='{BB5C8FF9-B813-479E-A3C8-11152B88FDA5}']"
+              s:ds="{04F5E8D6-1DA8-4C42-9822-E8FE9DCACBF0}"
+              s:id="{BDD730EB-F808-4C65-B94A-D2F03672EAFB}"
+              s:ph="/page-layout/section-narrow/col-wide-2-{72EA8864-7129-4D5F-A953-1AF281F5691F}-0" />
+            <r
+              uid="{72EA8864-7129-4D5F-A953-1AF281F5691F}"
+              p:after="r[@uid='{C76A2513-B2CA-48B4-A4A0-989176D2F799}']"
+              s:id="{50F6052C-4FC2-4AA6-9399-FFC6055CF19F}"
+              s:ph="/page-layout/section-narrow" />
+            <r
+              uid="{66422117-69C1-4B62-9323-482F16C4F244}"
+              s:par="Background&amp;UseStaticPlaceholderNames=1&amp;ContainerIsFluid" />
+            <r
+              uid="{025588CB-DFC0-4B02-8223-0015C525AE52}"
+              s:par="Background&amp;UseStaticPlaceholderNames=1&amp;ContainerIsFluid" />
+          </d>
+        </r>
+    - ID: "1b483e91-d8c4-4d19-ba03-462074b55936"
+      Hint: NavigationTitle
+      Value: News
+    - ID: "1b86697d-60ca-4d80-83fb-7555a2e6ce1c"
+      Hint: __Source
+      Value: 
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20200401T061416Z
+    - ID: "3e431de1-525e-47a3-b6b0-1ccbec3a8c98"
+      Hint: __Workflow state
+      Value: 
+    - ID: "9492e0bb-9df9-46e7-8188-ec795c4ade44"
+      Hint: Image
+      Value: |
+        <image mediaid="{E8F78F17-7440-4D1C-A29B-A0AD2F80CC88}" />
+    - ID: "ac3fd4db-8266-476d-9635-67814d91e901"
+      Hint: Summary
+      Value: The News module contains news functionality including lists, articles and teasers.
+    - ID: "c30a013f-3cc8-4961-9837-1c483277084a"
+      Hint: Title
+      Value: News
+    - ID: "ca0479ce-0bfe-4522-83de-ba688b380a78"
+      Hint: BrowserTitle
+      Value: News
+    - ID: "d74f396d-5c5e-4916-bd0a-bfd58b6b1967"
+      Hint: Body
+      Value: |
+        The News module contains features related to news content, i.e. articles and lists.<br />
+        <a href="~/link.aspx?_id=04F5E8D61DA84C429822E8FE9DCACBF0&amp;_z=z">See the news list here. </a>
+- Language: "ja-JP"
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "04bf00db-f5fb-41f7-8ab7-22408372a981"
+      Hint: __Final Renderings
+      Type: Layout
+      Value: |
+        <r xmlns:p="p" xmlns:s="s"
+          p:p="1"
+          s:xsd="http://www.w3.org/2001/XMLSchema">
+          <d
+            id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}">
+            <r
+              uid="{72EA8864-7129-4D5F-A953-1AF281F5691F}"
+              p:before="*"
+              s:id="{50F6052C-4FC2-4AA6-9399-FFC6055CF19F}"
+              s:ph="/page-layout/section-narrow" />
+            <r
+              uid="{66422117-69C1-4B62-9323-482F16C4F244}"
+              s:par="Background&amp;UseStaticPlaceholderNames=1&amp;ContainerIsFluid" />
+            <r
+              uid="{025588CB-DFC0-4B02-8223-0015C525AE52}"
+              s:par="Background&amp;UseStaticPlaceholderNames=1&amp;ContainerIsFluid" />
+            <r
+              uid="{BB5C8FF9-B813-479E-A3C8-11152B88FDA5}"
+              p:after="r[@uid='{20AB9BAA-C112-4567-A701-564423E650D2}']"
+              s:ds="{AA5EA770-F363-452A-AEB1-6FAE0833DA8B}"
+              s:id="{96EFEFFC-4D53-4F29-913E-84EDBFBE4DAB}"
+              s:ph="/page-layout/section-narrow/col-wide-1_72ea8864-7129-4d5f-a953-1af281f5691f" />
+            <r
+              uid="{C76A2513-B2CA-48B4-A4A0-989176D2F799}"
+              p:after="*[1=2]"
+              s:ds="{04F5E8D6-1DA8-4C42-9822-E8FE9DCACBF0}"
+              s:id="{BDD730EB-F808-4C65-B94A-D2F03672EAFB}"
+              s:ph="/page-layout/section-narrow/col-wide-2_72ea8864-7129-4d5f-a953-1af281f5691f" />
+          </d>
+        </r>
+    - ID: "1b483e91-d8c4-4d19-ba03-462074b55936"
+      Hint: NavigationTitle
+      Value: News
+    - ID: "1b86697d-60ca-4d80-83fb-7555a2e6ce1c"
+      Hint: __Source
+      Value: 
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20200401T061416Z
+    - ID: "3e431de1-525e-47a3-b6b0-1ccbec3a8c98"
+      Hint: __Workflow state
+      Value: 
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin
+    - ID: "9492e0bb-9df9-46e7-8188-ec795c4ade44"
+      Hint: Image
+      Value: |
+        <image mediaid="{E8F78F17-7440-4D1C-A29B-A0AD2F80CC88}" />
+    - ID: "ac3fd4db-8266-476d-9635-67814d91e901"
+      Hint: Summary
+      Value: The News module contains news functionality including lists, articles and teasers.
+    - ID: "c30a013f-3cc8-4961-9837-1c483277084a"
+      Hint: Title
+      Value: News
+    - ID: "ca0479ce-0bfe-4522-83de-ba688b380a78"
+      Hint: BrowserTitle
+      Value: News
+    - ID: "d74f396d-5c5e-4916-bd0a-bfd58b6b1967"
+      Hint: Body
+      Value: |
+        The News module contains features related to news content, i.e. articles and lists.<br />
+        <a href="~/link.aspx?_id=04F5E8D61DA84C429822E8FE9DCACBF0&amp;_z=z">See the news list here. </a>
