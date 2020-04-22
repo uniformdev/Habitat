@@ -14,6 +14,7 @@ namespace Sitecore.Foundation.Indexing.Repositories
 
     internal static class IndexingProviderRepository
     {
+        private readonly static object _syncRoot = new object();
         private static IEnumerable<ProviderBase> _all;
         private static ISearchResultFormatter _defaultSearchResultFormatter;
 
@@ -23,7 +24,13 @@ namespace Sitecore.Foundation.Indexing.Repositories
             {
                 if (_all == null)
                 {
-                    Initialize();
+                    lock (_syncRoot)
+                    {
+                        if (_all == null)
+                        {
+                            Initialize();
+                        }
+                    }
                 }
                 return _all;
             }
