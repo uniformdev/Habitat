@@ -1,5 +1,7 @@
 module.exports = function () {
-  var instanceRoot = "C:\\inetpub\\wwwroot\\habitat.dev.local";
+  var instanceRoot = process.env.INSTANCE_ROOT;
+  if (!instanceRoot) throw 'INSTANCE_ROOT env var is not defined' 
+
   var config = {
     websiteRoot: instanceRoot + "\\",
     sitecoreLibraries: instanceRoot + "\\bin",

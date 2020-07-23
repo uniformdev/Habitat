@@ -1,7 +1,7 @@
 # Solution parameters
 $SolutionPrefix = "habitat"
 $SitePostFix = "dev.local"
-$webroot = "C:\inetpub\wwwroot"
+$webroot = Join-Path $env:INSTANCE_ROOT -ChildPath ".."
 
 $SitecoreVersion = "9.2.0 rev. 002893"
 $IdentityServerVersion = "3.0.0 rev. 00211"
@@ -32,7 +32,7 @@ $SingleDeveloperConfiguration = "$AssetsRoot\XP0-SingleDeveloper.json"
 $SitecorePackage = "$AssetsRoot\Sitecore $SitecoreVersion (OnPrem)_single.scwdp.zip"
 $SitecoreSiteName = "$SolutionPrefix.$SitePostFix"
 $SitecoreSiteUrl = "http://$SitecoreSiteName"
-$SitecoreSiteRoot = Join-Path $webroot -ChildPath $SitecoreSiteName
+$SitecoreSiteRoot = $env:INSTANCE_ROOT
 $SitecoreAdminPassword = "b"
 
 # XConnect Parameters

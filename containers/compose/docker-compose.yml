@@ -1,0 +1,52 @@
+version: "2.4"
+
+services:
+  sql:
+    image: ${REGISTRY}sitecore-xp-jss-sqldev:${SITECORE_VERSION}-windowsservercore-${WINDOWSSERVERCORE_VERSION}
+    mem_limit: 8GB
+    ports:
+      - "44151:1433"
+    environment:
+      SA_PASSWORD: HASH-epsom-sunset-cost7!
+      ACCEPT_EULA: "Y"
+
+  solr:
+    image: ${REGISTRY}sitecore-xp-solr:${SITECORE_VERSION}-nanoserver-${NANOSERVER_VERSION}
+    mem_limit: 4GB
+    ports:
+      - "44111:8983"
+
+  sitecore:
+    image: ${REGISTRY}habitat-xp-jss-standalone:${SITECORE_VERSION}-windowsservercore-${WINDOWSSERVERCORE_VERSION}
+    volumes:
+      - .\.docker\files:C:\src
+      - ${SITECORE_LICENSE_DIR_PATH}:C:\license
+      - ..\..\src:C:\inetpub\wwwroot\App_Data\Habitat
+    entrypoint: powershell.exe -Command "& C:\\tools\\entrypoints\\iis\\Development.ps1"
+    ports:
+      - "44100:80"
+    environment:
+      SITECORE_APPSETTINGS_ROLE:DEFINE: ContentManagement
+      SITECORE_APPSETTINGS_SEARCH:DEFINE: Solr
+      SITECORE_CONNECTIONSTRINGS_CORE: Data Source=sql;Initial Catalog=Sitecore.Core;User ID=sa;Password=HASH-epsom-sunset-cost7!
+      SITECORE_CONNECTIONSTRINGS_SECURITY: Data Source=sql;Initial Catalog=Sitecore.Core;User ID=sa;Password=HASH-epsom-sunset-cost7!
+      SITECORE_CONNECTIONSTRINGS_MASTER: Data Source=sql;Initial Catalog=Sitecore.Master;User ID=sa;Password=HASH-epsom-sunset-cost7!
+      SITECORE_CONNECTIONSTRINGS_WEB: Data Source=sql;Initial Catalog=Sitecore.Web;User ID=sa;Password=HASH-epsom-sunset-cost7!
+      SITECORE_CONNECTIONSTRINGS_EXPERIENCEFORMS: Data Source=sql;Initial Catalog=Sitecore.ExperienceForms;User ID=sa;Password=HASH-epsom-sunset-cost7!
+      SITECORE_CONNECTIONSTRINGS_SOLR.SEARCH: http://solr:44111/solr
+      SITECORE_APPSETTINGS_TELERIK.ASYNCUPLOAD.CONFIGURATIONENCRYPTIONKEY: qspJhcSmT5VQSfbZadFfzhCK6Ud7uRoS42Qcm8UofvVLiXciUBcUeZELsTo8KD9o6KderQr9Z8uZ9CHisFJNRz46WTZ5qCRufRFt
+      SITECORE_APPSETTINGS_TELERIK.UPLOAD.CONFIGURATIONHASHKEY: qspJhcSmT5VQSfbZadFfzhCK6Ud7uRoS42Qcm8UofvVLiXciUBcUeZELsTo8KD9o6KderQr9Z8uZ9CHisFJNRz46WTZ5qCRufRFt
+      SITECORE_APPSETTINGS_TELERIK.WEB.UI.DIALOGPARAMETERSENCRYPTIONKEY: qspJhcSmT5VQSfbZadFfzhCK6Ud7uRoS42Qcm8UofvVLiXciUBcUeZELsTo8KD9o6KderQr9Z8uZ9CHisFJNRz46WTZ5qCRufRFt
+      ENTRYPOINT_STDOUT_IIS_ACCESS_LOG_ENABLED: 'false'
+      ENTRYPOINT_STDOUT_IIS_ERROR_LOG_ENABLED: 'false'
+      ENTRYPOINT_STDOUT_SITECORE_LOG_ENABLED: 'true'
+    depends_on:
+      sql:
+        condition: service_healthy
+      solr:
+        condition: service_started
+
+networks:
+  default:
+    external:
+      name: nat

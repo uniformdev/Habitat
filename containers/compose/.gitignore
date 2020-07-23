@@ -1,0 +1,8 @@
+*.user
+*.pubxml
+*.log
+.vs/
+.idea/
+bin/
+obj/
+packages/
