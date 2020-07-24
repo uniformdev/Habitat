@@ -1,32 +1,32 @@
 param (
     [switch]
-    $SkipHabitatStandalone,
-    [switch]
     $SkipPush
 )
 
 $Version = "9.2.0"
 $RegistryName = "altola"
-$BaseSiteImage = "$RegistryName.azurecr.io/sitecore-xp-jss-standalone:$Version-windowsservercore-ltsc2019"
-$SiteImage = "$RegistryName.azurecr.io/habitat-xp-jss-standalone:$Version-windowsservercore-ltsc2019"
+
+# input
+$SitecoreStandaloneImage = "$RegistryName.azurecr.io/sitecore-xp-jss-standalone:$Version-windowsservercore-ltsc2019"
+
+# images to be built
+$HabitatStandaloneImage = "$RegistryName.azurecr.io/habitat-xp-jss-standalone:$Version-windowsservercore-ltsc2019"
 $SqlImage = "$RegistryName.azurecr.io/habitat-xp-jss-sqldev:$Version-windowsservercore-ltsc2019"
 $SolrImage = "$RegistryName.azurecr.io/habitat-xp-solr:$Version-windowsservercore-ltsc2019"
 
-$root = "$PSScriptRoot\containers\habitat-standalone";
-$source = Join-Path "$root" -ChildPath "$Version";
-$temp = Join-Path "$root" -ChildPath "temp";
+# image that is used in the process only
+$HabitatUnicornImage = "$RegistryName.azurecr.io/habitat-xp-jss-unicorn:$Version-windowsservercore-ltsc2019"
+
+# dirs with dockerfiles
+$HabiatatUnicornDir = "$PSScriptRoot\containers\habitat-xp-jss-unicorn";
+$HabiatatStandaloneDir = "$PSScriptRoot\containers\habitat-xp-jss-standalone";
+
+$source = Join-Path "$HabiatatUnicornDir" -ChildPath "$Version";
+$temp = Join-Path "$HabiatatUnicornDir" -ChildPath "temp";
 
 MKDIR $temp -Force | Out-Null;
 RMDIR $temp -Force -Recurse;
 MKDIR $temp -Force | Out-Null;
-
-& .\containers\compose\Shutdown.ps1 -Clean
-
-if ($LASTEXITCODE -NE 0) {
-    exit $LASTEXITCODE;
-}
-
-$env:INSTANCE_ROOT = "$temp";
 
 # prepare our custom files for docker images
 # including vanila web.config, layers.config and domains.config
@@ -36,29 +36,51 @@ XCOPY $source $temp /S /Y;
 # workaround for stock habitat scripts
 dir src -Filter obj -Recurse | rmdir -Force -Recurse
 
-# stock habitat scripts
+# slighly modified habitat scripts that deploy files to the temp folder
+Write-Host "Deploying habitat to $temp folder" -ForegroundColor Green
+$env:INSTANCE_ROOT = "$temp";
 npx gulp deploy;
 
 if ($LASTEXITCODE -NE 0) {
     exit $LASTEXITCODE;
 }
 
-if (-not $SkipHabitatStandalone) {
-    docker build --build-arg "BASE_IMAGE=$BaseSiteImage" -t "$SiteImage" "$root"
+Write-Host "Building habitat package (habitat-xp-jss-unicorn)" -ForegroundColor Green
+docker build --build-arg "BASE_IMAGE=$SitecoreStandaloneImage" -t "$HabitatUnicornImage" "$HabiatatUnicornDir"
 
-    if ($LASTEXITCODE -NE 0) {
-        exit $LASTEXITCODE;
-    }
-
-    Write-Host "Success! Image is built: $SiteImage"
-    
-    if (-not $SkipPush) {
-        docker push "$SiteImage"
-    }
-} else {
-    Write-Host "Skipped building image: $SiteImage"
+if ($LASTEXITCODE -NE 0) {
+    exit $LASTEXITCODE;
 }
 
+Write-Host "Success! Image is built: $HabitatUnicornImage"
+
+# no need to push this image because it contains unicorn that will be removed, saved with different name and pushed
+# if (-not $SkipPush) {
+#     docker push "$HabitatUnicornImage"
+# } else {
+#     Write-Host "Skipping push"
+# }
+
+Write-Host "Building habitat-without-unicorn package (habitat-xp-jss-standalone)" -ForegroundColor Green
+docker build --build-arg "BASE_IMAGE=$HabitatUnicornImage" -t "$HabitatStandaloneImage" "$HabiatatStandaloneDir"
+
+if ($LASTEXITCODE -NE 0) {
+    exit $LASTEXITCODE;
+}
+
+Write-Host "Success! Image is built: $HabitatStandaloneImage"
+
+if (-not $SkipPush) {
+    docker push "$HabitatStandaloneImage"
+} else {
+    Write-Host "Skipping push"
+}
+
+& .\containers\compose\Shutdown.ps1 -Clean
+    
+if ($LASTEXITCODE -NE 0) {
+    exit $LASTEXITCODE;
+}
 
 try {
     & .\containers\compose\Compose.ps1 -Detach

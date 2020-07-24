@@ -17,7 +17,7 @@ services:
       - "44111:8983"
 
   sitecore:
-    image: ${REGISTRY}habitat-xp-jss-standalone:${SITECORE_VERSION}-windowsservercore-${WINDOWSSERVERCORE_VERSION}
+    image: ${REGISTRY}habitat-xp-jss-unicorn:${SITECORE_VERSION}-windowsservercore-${WINDOWSSERVERCORE_VERSION}
     volumes:
       - .\.docker\files:C:\src
       - ${SITECORE_LICENSE_DIR_PATH}:C:\license
