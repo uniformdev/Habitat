@@ -20,7 +20,7 @@ function Invoke-ScriptBlock {
     # images to be built
     $HabitatStandaloneImage = "$RegistryName.azurecr.io/habitat-xp-jss-standalone:$Version-windowsservercore-ltsc2019"
     $SqlImage = "$RegistryName.azurecr.io/habitat-xp-jss-sqldev:$Version-windowsservercore-ltsc2019"
-    $SolrImage = "$RegistryName.azurecr.io/habitat-xp-solr:$Version-windowsservercore-ltsc2019"
+    $SolrImage = "$RegistryName.azurecr.io/habitat-xp-solr:$Version-nanoserver-1809"
 
     # image that is used in the process only
     $HabitatUnicornImage = "$RegistryName.azurecr.io/habitat-xp-jss-unicorn:$Version-windowsservercore-ltsc2019"
