@@ -1,4 +1,11 @@
 param (
+    [Parameter(Mandatory=$True)]
+    [ValidateSet('9.2.0', '9.3.0')]
+    $Version,
+    [Parameter(Mandatory=$False)]
+    $RegistryName = "altola",
+    [Parameter(Mandatory=$False)]
+    $Port = "44100",
     [switch]
     $SkipPush,
     [switch]
@@ -10,10 +17,6 @@ param (
 )
 
 function Invoke-ScriptBlock {
-    $Version = "9.2.0"
-    $RegistryName = "altola"
-    $Port = "44100"
-
     # input
     $SitecoreStandaloneImage = "$RegistryName.azurecr.io/sitecore-xp-jss-standalone:$Version-windowsservercore-ltsc2019"
 
