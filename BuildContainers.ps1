@@ -63,6 +63,15 @@ function Invoke-ScriptBlock {
         # copying common files to temp
         XCOPY $common $temp /S /Y;
 
+        # removing all stock Sitecore assemblies
+        $stockAssemblies = (Invoke-WebRequest "http://dl.sitecore.net/updater/info/v4/Sitecore%20CMS/$Version/default/index.json" -UseBasicParsing).Content | ConvertFrom-Json | Select-Object -ExpandProperty Assemblies | Get-Member | ForEach-Object { return $_.Name }
+        $stockAssemblies | ForEach-Object {
+            $assemblyPath = "$temp\bin\$_"
+            if (Test-Path $assemblyPath) {
+               Remove-Item $assemblyPath -Verbose
+            }
+        }
+
         # removing unicorn because we don't need it in "production" habitat container (and because it will fail without access to serialization files)
         Get-ChildItem -Path "$temp\bin" -Filter "*Unicorn*" | Remove-Item -Force;
         Get-ChildItem -Path "$temp\bin" -Filter "*Rainbow*" | Remove-Item -Force;
