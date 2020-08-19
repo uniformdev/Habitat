@@ -89,41 +89,6 @@
       }
     }
 
-    [Theory]
-    [AutoDbData]
-    public void SiteDefinitions_TargetHostnameNotSet_ShouldReturnHostName(Db db, string siteName, DbItem rootItem)
-    {
-      const string siteHostName = "www.test.com";
-      var currentSite = SetupSite(db, siteName, rootItem, null, siteHostName);
-      var siteFactory = new Mock<BaseSiteContextFactory>();
-      siteFactory.Setup(x => x.GetSites()).Returns(new List<SiteInfo>() { currentSite });
-      ISiteDefinitionsProvider provider = new SiteDefinitionsProvider(siteFactory.Object);
-
-      var context = new SiteContext(currentSite);
-      using (new SiteContextSwitcher(context))
-      {
-        var site = provider.SiteDefinitions.First();
-        site.HostName.Should().BeEquivalentTo(siteHostName);
-      }
-    }
-
-    [Theory]
-    [AutoDbData]
-    public void SiteDefinitions_TargetHostnameSet_ShouldReturnTargetHostName(Db db, string siteName, DbItem rootItem, string targetHostName)
-    {
-      var currentSite = SetupSite(db, siteName, rootItem, targetHostName);
-      var siteFactory = new Mock<BaseSiteContextFactory>();
-      siteFactory.Setup(x => x.GetSites()).Returns(new List<SiteInfo>() { currentSite });
-      ISiteDefinitionsProvider provider = new SiteDefinitionsProvider(siteFactory.Object);
-
-      var context = new SiteContext(currentSite);
-      using (new SiteContextSwitcher(context))
-      {
-        var site = provider.SiteDefinitions.First();
-        site.HostName.Should().BeEquivalentTo(targetHostName);
-      }
-    }
-
     private static SiteInfo SetupSite(Db db, string siteName, DbItem rootItem, string targetHostName = null, string hostName = null)
     {
       var siteRoot = new DbItem("siteRoot", ID.NewID, Templates.Site.ID)

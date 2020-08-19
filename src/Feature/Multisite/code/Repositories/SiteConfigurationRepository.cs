@@ -1,15 +1,18 @@
 ﻿namespace Sitecore.Feature.Multisite.Repositories
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Sitecore.Configuration;
     using Sitecore.Data.Items;
+    using Sitecore.Diagnostics;
     using Sitecore.Feature.Multisite.Models;
     using Sitecore.Foundation.DependencyInjection;
     using Sitecore.Foundation.Multisite;
     using Sitecore.Foundation.Multisite.Providers;
     using Sitecore.Foundation.SitecoreExtensions.Extensions;
     using Sitecore.Globalization;
+    using Sitecore.Links;
 
     [Service(typeof(ISiteConfigurationRepository))]
     public class SiteConfigurationRepository : ISiteConfigurationRepository
@@ -48,9 +51,14 @@
 
         private static SiteConfiguration CreateSiteConfiguration(SiteDefinition siteConfiguration)
         {
+            var site = siteConfiguration.Site;
+            var rootItemPath = site.RootPath.TrimEnd('/') + "/" + site.StartItem;
+            var rootItem = Context.Database.GetItem(rootItemPath);
+            Assert.IsNotNull(rootItem, "The home item is missing: " + rootItemPath);
+
             return new SiteConfiguration
             {
-                HostName = siteConfiguration.HostName,
+                Url = LinkManager.GetDynamicUrl(rootItem),
                 Name = siteConfiguration.Name,
                 Title = GetSiteTitle(siteConfiguration),
                 ShowInMenu = siteConfiguration.Item.Fields[Multisite.Templates.SiteConfiguration.Fields.ShowInMenu].IsChecked(),
