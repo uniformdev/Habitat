@@ -103,6 +103,10 @@ function Invoke-ScriptBlock {
             Write-Host "Skipping push"
         }
 
+        if ($SkipSql -and $SkipSolr) {
+            exit 0;
+        }
+
         # phase 2
         # re-deploy site to recover unicorn 
 
@@ -130,12 +134,6 @@ function Invoke-ScriptBlock {
         # } else {
         #     Write-Host "Skipping push"
         # }
-
-        & .\containers\compose\Shutdown.ps1 -Clean
-            
-        if ($LASTEXITCODE -NE 0) {
-            exit $LASTEXITCODE;
-        }
     }
 
     if ($SkipSql -and $SkipSolr) {
