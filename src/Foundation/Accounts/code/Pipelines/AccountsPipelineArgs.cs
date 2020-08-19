@@ -15,7 +15,7 @@ namespace Sitecore.Foundation.Accounts.Pipelines
         {
             get
             {
-                return this.CustomData["UserName"]?.ToString();
+                return this.CustomData?["UserName"]?.ToString();
             }
             set
             {
@@ -27,7 +27,7 @@ namespace Sitecore.Foundation.Accounts.Pipelines
         {
             get
             {
-                return (Guid)this.CustomData["ContactId"];
+                return (Guid)this.CustomData?["ContactId"];
             }
             set
             {
