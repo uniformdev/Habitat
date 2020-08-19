@@ -15,7 +15,12 @@ namespace Sitecore.Foundation.Accounts.Pipelines
         {
             get
             {
-                return this.CustomData?["UserName"]?.ToString();
+                if (this.CustomData == null)
+                {
+                    return null;
+                }
+
+                return this.CustomData["UserName"]?.ToString();
             }
             set
             {
@@ -27,7 +32,12 @@ namespace Sitecore.Foundation.Accounts.Pipelines
         {
             get
             {
-                return (Guid)this.CustomData?["ContactId"];
+                if (this.CustomData == null || this.CustomData["ContactId"] == null)
+                {
+                    return null;
+                }
+
+                return (Guid)this.CustomData["ContactId"];
             }
             set
             {
