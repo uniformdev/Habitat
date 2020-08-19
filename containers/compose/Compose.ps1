@@ -17,9 +17,6 @@ param(
 
 $ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';
 
-# HABITAT only supports '9.2.0'
-$env:SITECORE_VERSION = '9.2.0'
-
 function Set-LicenseEnv { 
     param(
         [Parameter(Mandatory = $true)]
