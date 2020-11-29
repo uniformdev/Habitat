@@ -1,11 +1,14 @@
 param (
+    [Parameter(Mandatory = $False)]
+    $Suffix,
     [Parameter(Mandatory=$True)]
     [ValidateSet('9.2.0', '9.3.0')]
     $Version,
     [Parameter(Mandatory=$False)]
-    $RegistryName = "uniformwestus2",
-    [Parameter(Mandatory=$False)]
-    $Port = "44100",
+    $RegistryToRead = "uniformwestus2",
+
+    [switch]
+    $SkipLogin,
     [switch]
     $SkipPush,
     [switch]
@@ -16,17 +19,41 @@ param (
     $SkipSolr
 )
 
-function Invoke-ScriptBlock {
+$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';
+
+function Invoke-ScriptBlock { 
+    $env:REGISTRY = "$($RegistryToRead).azurecr.io/";
+    
+    $Port = "44100"
+    $RegistryUS = "uniformwestus2"
+    $REgistryEU = "uniformwesteu"
+
+    if (-not $SkipLogin) {
+        az acr login -n $RegistryUS
+        az acr login -n $REgistryEU
+    }        
+
+    if ($Suffix -and "$Suffix".Length -gt 0) {
+        if ($Suffix[0] -ne "-") {
+            $Suffix = "-$($Suffix)"
+        }
+    } else {
+        $date = (get-date -Format s).Substring(0, "2020-01-01".Length)
+        $Suffix = "-$($date)"
+    }
+
     # input
-    $SitecoreStandaloneImage = "$RegistryName.azurecr.io/sitecore-xp-jss-standalone:$Version-windowsservercore-ltsc2019"
+    $MicrosoftSqlImage = ".azurecr.io/mssql-developer:2017-windowsservercore-ltsc2019"
+    $SitecoreStandaloneImage = ".azurecr.io/sitecore-xp-jss-standalone:$Version-windowsservercore-ltsc2019"
 
     # images to be built
-    $HabitatStandaloneImage = "$RegistryName.azurecr.io/habitat-xp-jss-standalone:$Version-windowsservercore-ltsc2019"
-    $SqlImage = "$RegistryName.azurecr.io/habitat-xp-jss-sqldev:$Version-windowsservercore-ltsc2019"
-    $SolrImage = "$RegistryName.azurecr.io/habitat-xp-solr:$Version-nanoserver-1809"
+    $HabitatStandaloneImage = ".azurecr.io/habitat-xp-jss-standalone:$Version-windowsservercore-ltsc2019$Suffix"
+    $HabitatXpSqlDevImage = ".azurecr.io/habitat-xp-jss-sqldev:$Version-windowsservercore-ltsc2019$Suffix"
+    $HabitatXmSqlDevImage = ".azurecr.io/habitat-xm-jss-sqldev:$Version-windowsservercore-ltsc2019$Suffix"
+    $SolrImage = ".azurecr.io/habitat-xp-solr:$Version-nanoserver-1809$Suffix"
 
     # image that is used in the process only
-    $HabitatUnicornImage = "$RegistryName.azurecr.io/habitat-xp-jss-unicorn:$Version-windowsservercore-ltsc2019"
+    $HabitatUnicornImage = "habitat-xp-jss-temp:$Version-windowsservercore-ltsc2019"
 
     # dirs with dockerfiles
     $HabiatatUnicornDir = "$PSScriptRoot\containers\habitat-xp";
@@ -34,7 +61,6 @@ function Invoke-ScriptBlock {
 
     $source = Join-Path "$HabiatatUnicornDir" -ChildPath "$Version";
     $common = Join-Path "$HabiatatUnicornDir" -ChildPath "common";
-    $tools = Join-Path "$HabiatatUnicornDir" -ChildPath "tools";
     $temp = Join-Path "$HabiatatUnicornDir" -ChildPath "temp";
     $habitat = Join-Path "$HabiatatUnicornDir" -ChildPath "habitat";
 
@@ -51,54 +77,60 @@ function Invoke-ScriptBlock {
         # including vanila web.config, layers.config and domains.config
         # to be patched by gulp scripts
         XCOPY $source $habitat /S /Y;
+        
+        XCOPY $common $habitat /S /Y;
 
         # workaround for stock habitat scripts
-        dir src -Filter obj -Recurse | rmdir -Force -Recurse
+        dir "./src/*/*/*/obj" | Remove-Item -Force -Recurse
 
         # slighly modified habitat scripts that deploy files to the habitat folder (not to run npx gulp deploy twice)
         Write-Host "Deploying habitat to $habitat folder" -ForegroundColor Green
         $env:INSTANCE_ROOT = "$habitat";
         npx gulp deploy;
 
-        # copying from habitat to temp
-        XCOPY $habitat $temp /S /Y;
-
-        # copying common files to temp
-        XCOPY $common $temp /S /Y;
-
         # removing all stock Sitecore assemblies
         $stockAssemblies = (Invoke-WebRequest "http://dl.sitecore.net/updater/info/v4/Sitecore%20CMS/$Version/default/index.json" -UseBasicParsing).Content | ConvertFrom-Json | Select-Object -ExpandProperty Assemblies | Get-Member | ForEach-Object { return $_.Name }
         $stockAssemblies | ForEach-Object {
-            $assemblyPath = "$temp\bin\$_"
+            $assemblyPath = "$habitat\bin\$_"
             if (Test-Path $assemblyPath) {
                Remove-Item $assemblyPath -Verbose
             }
         }
 
-        # removing unicorn because we don't need it in "production" habitat container (and because it will fail without access to serialization files)
+        DIR "$habitat\bin\*.pdb" | Remove-Item -Force;
+        DIR "$habitat\bin\System.*.dll" | Remove-Item -Force;
+
+        # copying from habitat to temp
+        XCOPY $habitat $temp /S /Y;
+
+        # removing unicorn and uniform tools because we don't need it in "production" habitat container (and because it will fail without access to serialization files)
+        Get-ChildItem -Path "$temp\bin" -Filter "*Uniform*" | Remove-Item -Force;
         Get-ChildItem -Path "$temp\bin" -Filter "*Unicorn*" | Remove-Item -Force;
         Get-ChildItem -Path "$temp\bin" -Filter "*Rainbow*" | Remove-Item -Force;
+        Remove-Item "$temp\Tools" -Force -Recurse; 
         Get-ChildItem -Path "$temp\App_Config" -Filter "*Unicorn*" -Recurse -Directory | Remove-Item -Force -Recurse; 
         Get-ChildItem -Path "$temp\App_Config" -Filter "*Rainbow*" -Recurse -Directory | Remove-Item -Force -Recurse; 
         Get-ChildItem -Path "$temp\App_Config" -Filter "*.config" -Recurse -File | ForEach-Object { 
             $path = $_.FullName; 
             if (([xml](Get-Content $path)).SelectNodes("/configuration/sitecore/unicorn").Count -gt 0) { 
+                Write-Host "Removing $path because it contains <unicorn> element"
                 Remove-Item $path; 
             }
-        }
+        }        
         "<configuration><sitecore><sc.variable name=`"rootHostName`" value=`"dev.local`" /></sitecore></configuration>" | Out-File "$temp\App_Config\Environment\Project\Common.Dev.config"
 
-        Write-Host "Building `"production`" habitat package without unicorn (habitat-xp-jss-standalone)" -ForegroundColor Green
-        docker build --build-arg "BASE_IMAGE=$SitecoreStandaloneImage" -t "$HabitatStandaloneImage" "$HabiatatStandaloneDir"
+        Write-Host "Building `"production`" habitat package without unicorn and uniform tools (habitat-xp-jss-standalone)" -ForegroundColor Green
+        docker build --build-arg "BASE_IMAGE=$RegistryToRead$SitecoreStandaloneImage" -t "$RegistryUS$HabitatStandaloneImage" -t "$REgistryEU$HabitatStandaloneImage" "$HabiatatStandaloneDir"
 
         if ($LASTEXITCODE -NE 0) {
             exit $LASTEXITCODE;
         }
 
-        Write-Host "Success! Image is built: $HabitatStandaloneImage"
+        Write-Host "Success! Image is built: $RegistryUS/$REgistryEU$HabitatStandaloneImage"
 
         if (-not $SkipPush) {
-            docker push "$HabitatStandaloneImage"
+            docker push "$RegistryUS$HabitatStandaloneImage"
+            docker push "$RegistryEU$HabitatStandaloneImage"
         } else {
             Write-Host "Skipping push"
         }
@@ -116,11 +148,8 @@ function Invoke-ScriptBlock {
 
         XCOPY $habitat $temp /S /Y;
 
-        # add tools to sync unicorn and publish
-        XCOPY $tools $temp /S /Y;
-
-        Write-Host "Building normal habitat package with unicorn (habitat-xp-jss-unicorn)" -ForegroundColor Green
-        docker build --build-arg "BASE_IMAGE=$SitecoreStandaloneImage" -t "$HabitatUnicornImage" "$HabiatatUnicornDir"
+        Write-Host "Building normal habitat package with unicorn and uniform tools (habitat-xp-jss-temp)" -ForegroundColor Green
+        docker build --build-arg "BASE_IMAGE=$RegistryToRead$SitecoreStandaloneImage" -t "$HabitatUnicornImage" "$HabiatatUnicornDir"
 
         if ($LASTEXITCODE -NE 0) {
             exit $LASTEXITCODE;
@@ -151,6 +180,8 @@ function Invoke-ScriptBlock {
 
         Invoke-NonBlockingWebRequest -Url "http://localhost:$Port/Tools/SyncUnicorn.aspx?timeout=720&token=12345"
 
+        Invoke-NonBlockingWebRequest -Url "http://localhost:$Port/Tools/RebuildLinks.aspx?timeout=720&token=12345&databases=master|web"
+
         Invoke-NonBlockingWebRequest -Url "http://localhost:$Port/Tools/Publish.aspx?timeout=720&token=12345&mode=full&smart=true&source=master&target=web&language=en"
 
         # we need to find our docker containers that belong to this execution (there could be many similar ones)
@@ -161,29 +192,42 @@ function Invoke-ScriptBlock {
         & .\containers\compose\Stop.ps1
 
         if (-not $SkipSql) {
-            $done = $false;
-            $info | where { $_ -like "*:44151*" } | foreach {
-                # 2cf343219ca6        altola.azurecr.io/sitecore-xp-jss-sqldev:9.2.0-windowsservercore-ltsc2019      "powershell -Command…"   23 minutes ago      Up 23 minutes (healthy)   0.0.0.0:44151->1433/tcp   compose_sql_1
-                $sha = $_.Substring(0, "2cf343219ca6".Length);
-                if ($done) {
-                    return;
-                }
+            Copy-Item "$PSScriptRoot\containers\sqldev\Boot.ps1" "$PSScriptRoot\containers\sqldev\files" -Force
+            DIR "$PSScriptRoot\containers\sqldev\files\*.ldf" | Remove-Item -Force
+            DIR "$PSScriptRoot\containers\sqldev\files\*_Primary.*" | %{ Rename-Item $_.FullName -NewName ($_.Name.Replace('_Primary', ''))}
+            
+            docker build "$PSScriptRoot\containers\sqldev" --build-arg BASE_IMAGE="$RegistryToRead$MicrosoftSqlImage" -t "$RegistryUS$HabitatXpSqlDevImage" -t "$RegistryEU$HabitatXpSqlDevImage"
 
-                Write-Host "Committing $sha as $SqlImage"
-                docker commit $sha "$SqlImage"
-                if (-not $SkipPush) {
-                    Write-Host "Pushing $SqlImage"
-                    docker push "$SqlImage"
-                }
-
-                $done = $true;
+            if ($LASTEXITCODE -ne 0) {
+                exit $LASTEXITCODE;
             }
 
-            if (-not $done) {
-                Write-Error "Failed to find sqldev container among these:"
-                $info
+            if (-not $SkipPush) {
+                docker push $ImageNameUS;
+                docker push $ImageNameEU;
+            } else {
+                Write-Host "Skipping push"
+            }
 
-                exit -1;
+            MKDIR "$PSScriptRoot\containers\sqldev\files-xm" -Force | Out-Null
+            RMDIR "$PSScriptRoot\containers\sqldev\files-xm" -Force | Out-Null
+            MKDIR "$PSScriptRoot\containers\sqldev\files-xm" -Force | Out-Null
+            Copy-Item "$PSScriptRoot\containers\sqldev\files\Sitecore.Core.mdf" "$PSScriptRoot\containers\sqldev\files-xm"
+            Copy-Item "$PSScriptRoot\containers\sqldev\files\Sitecore.Master.mdf" "$PSScriptRoot\containers\sqldev\files-xm"
+            RMDIR "$PSScriptRoot\containers\sqldev\files" -Recurse -Force
+            Rename-Item "$PSScriptRoot\containers\sqldev\files-xm" -NewName "files"
+
+            docker build "$PSScriptRoot\containers\sqldev" --build-arg BASE_IMAGE="$RegistryToRead$MicrosoftSqlImage" -t "$RegistryUS$HabitatXmSqlDevImage" -t "$RegistryEU$HabitatXmSqlDevImage"
+
+            if ($LASTEXITCODE -ne 0) {
+                exit $LASTEXITCODE;
+            }
+
+            if (-not $SkipPush) {
+                docker push $ImageNameUS;
+                docker push $ImageNameEU;
+            } else {
+                Write-Host "Skipping push"
             }
         }
 
@@ -216,6 +260,7 @@ function Invoke-ScriptBlock {
     } finally {
         Write-Host "Cleaning up"
         & .\containers\compose\Shutdown.ps1 -Clean
+        docker image rm $HabitatUnicornImage
     }
 }
 

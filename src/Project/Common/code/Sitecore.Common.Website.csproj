@@ -67,6 +67,9 @@
     <PackageReference Include="System.Linq.Expressions" Version="4.1.0" />
     <PackageReference Include="System.Reflection" Version="4.1.0" />
     <PackageReference Include="System.Resources.ResourceManager" Version="4.0.1" />
+    <PackageReference Include="Uniform.Sitecore.Tools">
+      <Version>1.0.201128.2</Version>
+    </PackageReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(LocalReferences)' == 'true'">
@@ -201,6 +204,14 @@
     <Content Include="styles\niteflight.min.css">
       <DependentUpon>niteflight.css</DependentUpon>
     </Content>
+    <Content Include="Tools\BuildPackage.aspx" />
+    <Content Include="Tools\CreateApiKey.aspx" />
+    <Content Include="Tools\InstallPackages.aspx" />
+    <Content Include="Tools\Publish.aspx" />
+    <Content Include="Tools\RebuildIndexes.aspx" />
+    <Content Include="Tools\RebuildLinks.aspx" />
+    <Content Include="Tools\RemoveTools.aspx" />
+    <Content Include="Tools\SyncUnicorn.aspx" />
     <Content Include="Views\Common\Sublayouts\1 Column.cshtml" />
     <Content Include="Views\Common\Sublayouts\2 Column 3-9.cshtml" />
     <Content Include="Views\Common\Sublayouts\2 Column 4-8.cshtml" />
