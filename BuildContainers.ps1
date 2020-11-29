@@ -3,7 +3,7 @@ param (
     [ValidateSet('9.2.0', '9.3.0')]
     $Version,
     [Parameter(Mandatory=$False)]
-    $RegistryName = "altola",
+    $RegistryName = "uniformwestus2",
     [Parameter(Mandatory=$False)]
     $Port = "44100",
     [switch]

@@ -87,7 +87,7 @@ function Invoke-CheckPrerequisites {
     }
     
     if ([string]::IsNullOrWhiteSpace($env:REGISTRY)) {
-        $env:REGISTRY = "altola.azurecr.io/"
+        $env:REGISTRY = "uniformwestus2.azurecr.io/"
         Write-Warning "No REGISTRY environment variable specified, default value will be used instead: $env:REGISTRY"
     }
     
