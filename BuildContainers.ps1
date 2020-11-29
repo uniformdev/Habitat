@@ -66,11 +66,11 @@ function Invoke-ScriptBlock {
 
     if (-not $SkipStandalone) {
         MKDIR $temp -Force | Out-Null;
-        RMDIR $temp -Force -Recurse;
+        RMDIR $temp -Recurse -Force;
         MKDIR $temp -Force | Out-Null;
 
         MKDIR $habitat -Force | Out-Null;
-        RMDIR $habitat -Force -Recurse;
+        RMDIR $habitat -Recurse -Force;
         MKDIR $habitat -Force | Out-Null;
 
         # prepare our custom files for docker images
@@ -143,7 +143,7 @@ function Invoke-ScriptBlock {
         # re-deploy site to recover unicorn 
 
         MKDIR $temp -Force | Out-Null;
-        RMDIR $temp -Force -Recurse;
+        RMDIR $temp -Recurse -Force;
         MKDIR $temp -Force | Out-Null;
 
         XCOPY $habitat $temp /S /Y;
@@ -210,7 +210,7 @@ function Invoke-ScriptBlock {
             }
 
             MKDIR "$PSScriptRoot\containers\sqldev\files-xm" -Force | Out-Null
-            RMDIR "$PSScriptRoot\containers\sqldev\files-xm" -Force | Out-Null
+            RMDIR "$PSScriptRoot\containers\sqldev\files-xm" -Recurse -Force | Out-Null
             MKDIR "$PSScriptRoot\containers\sqldev\files-xm" -Force | Out-Null
             Copy-Item "$PSScriptRoot\containers\sqldev\files\Sitecore.Core.mdf" "$PSScriptRoot\containers\sqldev\files-xm"
             Copy-Item "$PSScriptRoot\containers\sqldev\files\Sitecore.Master.mdf" "$PSScriptRoot\containers\sqldev\files-xm"

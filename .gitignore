@@ -247,5 +247,4 @@ npm-debug.log
 /BuildConfiguration.csproj
 .docker/
 containers/habitat-xp/habitat/
-*.ldf
-*.mdf
+containers/sqldev/files/*
